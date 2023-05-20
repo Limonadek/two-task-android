@@ -1,5 +1,7 @@
 package com.example.twotaskandroid
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.twotaskandroid.objects.Cat
 import com.example.twotaskandroid.presentationLayer.AdapterCat
+import com.example.twotaskandroid.presentationLayer.ImageActivity
 import com.example.twotaskandroid.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -32,8 +35,7 @@ class MainFragment : Fragment() {
 
         adapter.setOnItemClickListener(
             object : AdapterCat.OnItemClickListener {
-                override fun onItemClick(cat: Cat) {
-
+                override fun onItemClick(cat: Cat, position: Int, context: Context) {
                 }
             }
         )
@@ -86,6 +88,17 @@ class MainFragment : Fragment() {
             viewModel.loadCats()
         }
 
+        adapter.setOnItemClickListener(
+            object : AdapterCat.OnItemClickListener {
+                override fun onItemClick(cat: Cat, position: Int, context: Context) {
+                    val intent = Intent(context, ImageActivity::class.java)
+                    intent.putExtra("cat_image_url", adapter.BASE_URL + cat.url)
+                    context.startActivity(intent)
+                }
+            }
+        )
+
+        recyclerView.adapter = adapter
         return view
     }
 }

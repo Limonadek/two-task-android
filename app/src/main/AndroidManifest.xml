@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TwoTaskAndroid"
         tools:targetApi="31">
+        <activity android:name=".presentationLayer.ImageActivity" />
         <activity
             android:name=".presentationLayer.MainActivity"
             android:exported="true">

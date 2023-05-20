@@ -1,5 +1,6 @@
 package com.example.twotaskandroid.presentationLayer
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ class AdapterCat : RecyclerView.Adapter<AdapterCat.CatsViewHolder>() {
     private var cats = ArrayList<Cat>()
     private lateinit var onReachEndListener: OnReachEndListener
     private lateinit var onItemClickListener: OnItemClickListener
-    private val BASE_URL = "https://cataas.com/cat?id="
+    val BASE_URL = "https://cataas.com/cat?id="
 
     fun setCats(cats : List<Cat>){
         this.cats = cats as ArrayList<Cat>
@@ -43,7 +44,7 @@ class AdapterCat : RecyclerView.Adapter<AdapterCat.CatsViewHolder>() {
             onReachEndListener.onReachEnd()
 
         holder.itemView.setOnClickListener{
-            onItemClickListener.onItemClick(cat)
+            onItemClickListener.onItemClick(cat, position, holder.itemView.context)
         }
     }
 
@@ -60,6 +61,12 @@ class AdapterCat : RecyclerView.Adapter<AdapterCat.CatsViewHolder>() {
     }
 
     interface OnItemClickListener{
-        fun onItemClick(cat : Cat)
+        fun onItemClick(cat: Cat, position: Int, context: Context)
     }
 }
+
+
+// Таким образом, этот файл Kotlin определяет класс адаптера, который обрабатывает привязку
+// данных к представлениям в RecyclerView. Это позволяет настраивать список cats, регистрировать
+// прослушивателей для достижения конца списка и событий щелчка по элементу, а также предоставляет
+// необходимые переопределения для RecyclerView.Адаптер.
